@@ -14,9 +14,9 @@ import { HomePage } from "./screens/HomePage.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<HomePage />} errorElement={<ErrorPage />}>
+    <Route errorElement={<ErrorPage />}>
+      <Route path="/" element={<HomePage />} errorElement={<ErrorPage />} />
       <Route path="/admin-sign-in" element={<AdminSignInPage />} />
-      <Route path="/admin-overview" element={<AdminSignInPage />} />
     </Route>
   )
 );
