@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Divider } from "./Divider";
 
 export const HeaderBrown = ({ tag, tagNumber }) => {
   return tag ? (

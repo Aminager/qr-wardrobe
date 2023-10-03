@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { HeaderBrown } from "../components/HeaderBrown";
 
 export const HomePage = () => {
@@ -8,9 +8,12 @@ export const HomePage = () => {
     <div className="flex flex-col h-screen bg-eklightbrown">
       <HeaderBrown />
       <div className="flex h-3/5 justify-center items-center">
-        <Link to="admin-sign-in">
-          <button className="btn btn-neutral btn-lg">Sign in as admin</button>
-        </Link>
+        <button
+          onClick={() => navigate("/admin-sign-in")}
+          className="btn btn-neutral btn-lg"
+        >
+          Sign in as admin
+        </button>
       </div>
     </div>
   );

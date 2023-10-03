@@ -1,8 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import { HeaderBrown } from "../components/HeaderBrown";
 
 export const AdminSignInPage = () => {
+  const navigate = useNavigate();
+
   const submitForm = (e) => {
     e.preventDefault();
+    navigate("/auth/vg/1");
   };
 
   return (
@@ -15,7 +19,7 @@ export const AdminSignInPage = () => {
           </label>
           <input
             type="text"
-            placeholder="Type here"
+            placeholder="e.g Hawkins"
             className="input input-bordered w-full max-w-xs bg-ekblue"
           />
           <label className="label">
@@ -23,14 +27,14 @@ export const AdminSignInPage = () => {
           </label>
           <input
             type="password"
-            placeholder="Type here"
+            placeholder="e.g abc123"
             className="input input-bordered w-full max-w-xs bg-ekblue"
           />
           <button
             onClick={submitForm}
             className="btn btn-sm my-5 border-none bg-ekblue"
           >
-            hej
+            Log in
           </button>
         </div>
       </form>

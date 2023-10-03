@@ -6,17 +6,18 @@ import {
   createRoutesFromElements,
   RouterProvider,
   Route,
-  Link,
 } from "react-router-dom";
 import ErrorPage from "./screens/ErrorPage.jsx";
-import { AdminSignInPage } from "./screens/AdminSignIn.jsx";
+import { AdminSignInPage } from "./screens/AdminSignInPage.jsx";
 import { HomePage } from "./screens/HomePage.jsx";
+import { UserSignInPage } from "./screens/UserSignInPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route errorElement={<ErrorPage />}>
       <Route path="/" element={<HomePage />} errorElement={<ErrorPage />} />
       <Route path="/admin-sign-in" element={<AdminSignInPage />} />
+      <Route path="/auth/:org/:tagid" element={<UserSignInPage />} />
     </Route>
   )
 );
