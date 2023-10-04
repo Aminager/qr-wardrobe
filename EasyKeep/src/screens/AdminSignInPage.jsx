@@ -12,7 +12,7 @@ export const AdminSignInPage = () => {
   return (
     <div className="flex flex-col h-screen bg-eklightbrown">
       <HeaderBrown />
-      <form className="flex justify-center">
+      <form className="flex h-full justify-center">
         <div className="form-control w-full max-w-xs">
           <label className="label">
             <span className="label-text text-ekblue">Username</span>

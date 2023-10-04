@@ -11,6 +11,7 @@ import ErrorPage from "./screens/ErrorPage.jsx";
 import { AdminSignInPage } from "./screens/AdminSignInPage.jsx";
 import { HomePage } from "./screens/HomePage.jsx";
 import { UserSignInPage } from "./screens/UserSignInPage";
+import { UserTagPage, UserTagPageLoader } from "./screens/UserTagPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +19,11 @@ const router = createBrowserRouter(
       <Route path="/" element={<HomePage />} errorElement={<ErrorPage />} />
       <Route path="/admin-sign-in" element={<AdminSignInPage />} />
       <Route path="/auth/:org/:tagid" element={<UserSignInPage />} />
+      <Route
+        path="/:org/:tagid"
+        element={<UserTagPage />}
+        loader={UserTagPageLoader}
+      />
     </Route>
   )
 );
