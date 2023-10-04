@@ -29,7 +29,7 @@ export const UserTagPage = () => {
     <div className="flex flex-col h-screen bg-eklightblue">
       <HeaderBlue tag org={org} tagNumber={tagid} />
       <div className="flex flex-col h-full justify-center items-center text-3xl">
-        {auth && (type === "bid" || type === "username")
+        {auth && (type === "bid" || type === "username") && from === "sign"
           ? authorizedTag
           : noAuthTag}
       </div>
