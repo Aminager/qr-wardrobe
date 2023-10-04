@@ -5,7 +5,7 @@ from markupsafe import escape
 
 app = Flask(__name__)
 CORS(app)
-DATABASE = './database.db'
+DATABASE = './database.sqlite'
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -25,6 +25,11 @@ def index():
 
 @app.get("/status/<string:org>/<int:tag_id>")
 def get_tag_status(org, tag_id):
+    c = get_db().cursor()
+    c.execute("""
+    
+
+    """)
     return {
         "org": escape(org),
         "tag": escape(tag_id),
