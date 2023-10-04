@@ -1,22 +1,22 @@
 INSERT INTO orgs 
-VALUES ("Västgöta Nation", "VG", 500),
-                ("Lunds Nation", "Lunds", 400);
+VALUES ("Västgöta Nation", "vg", 500),
+                ("Lunds Nation", "lunds", 400);
 
 INSERT INTO tags
-VALUES (1, "", "Empty", "VG"),
-                (2, "", "Empty", "VG"),
-                (3, "", "Empty", "VG"),
-                (4, "", "Empty", "VG"),
-                (5, "", "Empty", "VG"),
-                (6, "", "Empty", "VG"),
-                (7, "", "Empty", "VG"),
-                (8, "", "Empty", "VG"),
-                (9, "", "Empty", "VG"),
-                (10, "", "Empty", "VG"),
-                (11, "", "Empty", "VG"),
-                (12, "", "Empty", "VG"),
-                (13, "", "Empty", "VG"),
-                (14, "", "Empty", "VG"),
-                (15, "", "Empty", "VG"),
-                (16, "", "Empty", "VG"),
-                (17, "", "Empty", "VG");
+VALUES (1, "", 0, "vg"),
+                (2, "", 0, "vg"),
+                (3, "", 0, "vg"),
+                (4, "", 0, "vg"),
+                (5, "", 0, "vg"),
+                (6, "", 0, "vg"),
+                (7, "", 0, "vg"),
+                (8, "", 0, "vg"),
+                (9, "", 0, "vg"),
+                (10, "", 0, "vg"),
+                (11, "", 0, "vg"),
+                (12, "", 0, "vg"),
+                (13, "", 0, "vg"),
+                (14, "", 0, "vg"),
+                (15, "", 0, "vg"),
+                (16, "", 0, "vg"),
+                (17, "", 0, "vg");
