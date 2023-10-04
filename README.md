@@ -10,6 +10,7 @@ Go to /server/:
     python3 -m flask --app server run
 ```
 ### Start React app
+Go to root:
 ```
     yarn dev
 ```
