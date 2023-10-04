@@ -6,7 +6,8 @@ KeepIt is a modern approach to wardrobes. To simplify the process of getting you
 ### Start server
 Go to /server/:
 ```
-    sqlite3 database.db < create-schema.sql
+    sqlite3 database.sqlite < create-schema.sql
+    sqlite3 database.sqlite < add-data.sql
     python3 -m flask --app server run
 ```
 ### Start React app
