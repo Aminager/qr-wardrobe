@@ -7,7 +7,7 @@ export const UserSignInPage = () => {
   const navigate = useNavigate();
 
   const handleSignBankId = () => {
-    console.log(authTag(org, tagid));
+    authTag(org, tagid, "Amin Alian");
     navigate(`/${org}/${tagid}/?from=sign&type=bid&auth=true`);
   };
 
