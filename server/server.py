@@ -30,6 +30,32 @@ def reset():
     c.execute("DELETE FROM orgs")
     c.execute("DELETE FROM tags")
 
+@app.post("/reset/<string:org>/<int:tag_id>")
+def reset_tag(org, tag_id):
+    c = get_db().cursor()
+    c.execute("""
+              UPDATE tags
+              SET user_name = "", tag_status = 0
+              WHERE org_short_name = ? AND tag_id = ?
+              """, [org, tag_id])
+    get_db().commit()
+    c.execute("""
+              SELECT *
+              FROM tags
+              WHERE org_short_name = ? AND tag_id = ?
+""", [org, tag_id])
+    tag = c.fetchone()
+    if tag[2] == 0:
+        return {
+            "success": 1
+        }
+    else:
+        return {
+            "success": 0
+        }
+
+
+
 @app.get("/orgs")
 def get_orgs():
     c = get_db().cursor()
@@ -39,14 +65,18 @@ def get_orgs():
     """)
     return c.fetchall()
 
-@app.get("/tags")
-def get_tags():
+@app.get("/tags/<string:org>")
+def get_tags(org):
     c = get_db().cursor()
     c.execute("""
             SELECT *
             FROM tags
-    """)
-    return c.fetchall()
+            WHERE org_short_name = ?
+    """, [org])
+    tag_list = []
+    for row in c.fetchall():
+        tag_list.append(row)
+    return tag_list
 
 @app.get("/status/<string:org>/<int:tag_id>")
 def get_tag_status(org, tag_id):
@@ -54,7 +84,7 @@ def get_tag_status(org, tag_id):
     c.execute("""
             SELECT *
             FROM tags
-            WHERE org_name = {org} AND tag_id = {tag_id}
+            WHERE org_short_name = {org} AND tag_id = {tag_id}
     """)
     return {
         "org": escape(org),
@@ -68,7 +98,7 @@ def get_tag_info(org, tag_id):
     c.execute("""
             SELECT *
             FROM tags
-            WHERE org_name = ? AND tag_id = ?
+            WHERE org_short_name = ? AND tag_id = ?
     """, [org, tag_id])
     tag = c.fetchone()
     return {
@@ -86,15 +116,37 @@ def authorize_tag(org, tag_id):
     c.execute("""
             UPDATE tags
             SET user_name = ?, tag_status = 1
-            WHERE org_name = ? AND tag_id = ?
+            WHERE org_short_name = ? AND tag_id = ?
 """, [data["name"], org, tag_id])
+    get_db().commit()
     c.execute("""
             SELECT *
             FROM tags
-            WHERE org_name = ? AND tag_id = ?
+            WHERE org_short_name = ? AND tag_id = ?
 """, [org, tag_id])
-    get_db().commit()
     return {
         "location": f"/tag/{org}/{tag_id}",
         "tag": c.fetchone()
     }
+
+@app.post("/authorize/admin")
+def authorize_admin():
+    data = json.loads(request.get_data())
+    c = get_db().cursor()
+    c.execute("""
+            SELECT *
+            FROM admins
+            WHERE admin_name = ? AND admin_password = ?
+""", [data["admin_name"], data["admin_pass"]])
+    admin = c.fetchone()
+    if admin is None:
+        return {
+            "success": 0
+        }
+    else:
+        return {
+            "success": 1,
+            "org": admin[2]
+        }
+
+    

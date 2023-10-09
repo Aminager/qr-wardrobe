@@ -20,3 +20,6 @@ VALUES (1, "", 0, "vg"),
                 (15, "", 0, "vg"),
                 (16, "", 0, "vg"),
                 (17, "", 0, "vg");
+
+INSERT INTO admins
+VALUES ("keepit", "keepit1", "vg");
