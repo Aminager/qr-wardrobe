@@ -148,5 +148,47 @@ def authorize_admin():
             "success": 1,
             "org": admin[2]
         }
+    
+@app.post("/authorize/user")
+def authorize_user():
+    data = json.loads(request.get_data())
+    c = get_db().cursor()
+    c.execute("""
+            SELECT *
+            FROM users
+            WHERE user_name = ? AND user_password = ?
+""", [data["user_name"], data["user_pass"]])
+    user = c.fetchone()
+    if user is None:
+        return {
+            "success": 0
+        }
+    else:
+        return {
+            "success": 1
+        }
+
+@app.post("/create-user/")
+def create_user():
+    data = json.loads(request.get_data())
+    c = get_db().cursor()
+    c.execute("""
+            SELECT *
+            FROM users
+            WHERE user_name = ?
+""", [data["name"]])
+    if c.fetchone()[0] is None:
+        c.execute("""
+                INSERT INTO users
+                VALUES (?, ?)
+    """, [data["name"], data["pass"]])
+        get_db().commit()
+        return {
+            "success": 1
+        }
+    else:
+        return {
+            "success": 0
+        }
 
     

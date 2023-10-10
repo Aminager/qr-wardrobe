@@ -24,3 +24,9 @@ CREATE TABLE admins (
     PRIMARY KEY (admin_name)
     FOREIGN KEY (org_short_name) REFERENCES orgs(org_short_name)
 );
+
+CREATE TABLE users (
+    user_name TEXT,
+    user_password TEXT,
+    PRIMARY KEY (user_name)
+);
