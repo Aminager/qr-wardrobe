@@ -5,7 +5,9 @@ export const AdminSignInPage = () => {
   return (
     <div className="flex flex-col h-screen bg-eklightbrown">
       <HeaderBrown />
-      <AdminForm />
+      <div className="flex h-full justify-center items-center">
+        <AdminForm />
+      </div>
     </div>
   );
 };

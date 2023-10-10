@@ -1,37 +1,26 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 import { HeaderBlue } from "../components/HeaderBlue";
-import { authTag } from "../utils/API";
+import { SignInButtonGroup } from "../components/SignInButtonGroup";
+import { useNavigate, useParams } from "react-router-dom";
+import { SignInWithUsername } from "../components/SignInWithUsername";
 
 export const UserSignInPage = () => {
   const { org, tagid } = useParams();
   const navigate = useNavigate();
-
-  const handleSignBankId = () => {
-    authTag(org, tagid, "Amin Alian");
-    navigate(`/${org}/${tagid}/?from=sign&type=bid&auth=true`);
-  };
-
-  const handleSignUsername = () => {
-    navigate(`/${org}/${tagid}/?from=sign&type=username`);
-  };
+  const [signInUsername, setSignInUsername] = useState(false);
 
   return (
     <div className="flex flex-col h-screen bg-eklightblue">
       <HeaderBlue tag org={org} tagNumber={tagid} />
-      <div className="flex flex-col h-full justify-center items-center gap-3">
-        <button
-          onClick={() => handleSignBankId()}
-          className="btn btn-neutral btn-lg w-1/2 text-md"
-        >
-          Sign in with Bank ID
-        </button>
-        <button
-          onClick={() => handleSignUsername()}
-          className="btn btn-neutral btn-lg w-1/2 text-md"
-        >
-          Sign in with username
-        </button>
-      </div>
+      {signInUsername ? (
+        <SignInWithUsername org={org} tagid={tagid} />
+      ) : (
+        <SignInButtonGroup
+          setSignInUsername={setSignInUsername}
+          org={org}
+          tagid={tagid}
+        />
+      )}
     </div>
   );
 };

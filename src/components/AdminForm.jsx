@@ -18,7 +18,7 @@ export const AdminForm = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-eklightbrown">
+    <div className="flex flex-col bg-eklightbrown">
       {showAlert ? (
         <div className="alert alert-error w-3/5 self-center m-5">
           <span>Username or password incorrect</span>

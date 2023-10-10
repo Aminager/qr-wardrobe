@@ -47,15 +47,39 @@ export function authAdmin(name, pass) {
     return response
 }
 
-export function resetTag(org, tag_id) {
+export function authUser(name, pass) {
     const postInit = {
         method: "POST",
         mode: "cors",
         body: JSON.stringify({
-            "name": name
+            "user_name": name,
+            "user_pass": pass
         })
     }
+    const response = fetch(`http://127.0.0.1:5000/authorize/user`, postInit).then(res => res.json());
+    return response
+}
+
+export function resetTag(org, tag_id) {
+    const postInit = {
+        method: "POST",
+        mode: "cors"
+    }
     const response = fetch(`http://127.0.0.1:5000/reset/${org}/${tag_id}`, postInit).then(res => res.json());
+    console.log(response)
+    return response
+}
+
+export function createUser(name, pass) {
+    const postInit = {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify({
+            "name": name,
+            "pass": pass
+        })
+    }
+    const response = fetch(`http://127.0.0.1:5000/create-user/`, postInit).then(res => res.json());
     console.log(response)
     return response
 }
