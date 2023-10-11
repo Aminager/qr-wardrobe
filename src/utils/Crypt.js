@@ -1,6 +1,9 @@
 import bcrypt from 'bcryptjs'
 
 export function hashPassword(pass) {
-    const salt = bcrypt.genSaltSync(10)
-    return bcrypt.hashSync(pass, salt);
+    return bcrypt.hashSync(pass);
+}
+
+export function checkPassword(pass) {
+    return bcrypt.compare(pass, hashPassword(pass))
 }

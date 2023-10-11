@@ -1,22 +1,23 @@
+const HOST = "http://127.0.0.1:5000"
 const getInit = {
       method: "GET",
       mode: "cors",
     };
 
 export function getStatus(org, tag_id) {
-    const response = fetch(`http://127.0.0.1:5000/status/${org}/${tag_id}`, getInit).then(res => res.json());
+    const response = fetch(`${HOST}/${org}/${tag_id}`, getInit).then(res => res.json());
     console.log(response["status"] === 1 ? "Authorized" : "Empty")
     return response["status"] === 1 ? "Authorized" : "Empty"
 }
 
 export function getTagInfo(org, tag_id) {
-    const response = fetch(`http://127.0.0.1:5000/tag/${org}/${tag_id}`, getInit).then(res => res.json());
+    const response = fetch(`${HOST}/tag/${org}/${tag_id}`, getInit).then(res => res.json());
     console.log(response)
     return response
 }
 
 export function getTags(org) {
-    const response = fetch(`http://127.0.0.1:5000/tags/${org}`, getInit).then(res => res.json());
+    const response = fetch(`${HOST}/tags/${org}`, getInit).then(res => res.json());
     console.log(response)
     return response
 }
@@ -29,7 +30,7 @@ export function authTag(org, tag_id, name) {
             "name": name
         })
     }
-    const response = fetch(`http://127.0.0.1:5000/authorize/${org}/${tag_id}`, postInit).then(res => res.json());
+    const response = fetch(`${HOST}/authorize/${org}/${tag_id}`, postInit).then(res => res.json());
     console.log(response)
     return response
 }
@@ -43,7 +44,7 @@ export function authAdmin(name, pass) {
             "admin_pass": pass
         })
     }
-    const response = fetch(`http://127.0.0.1:5000/authorize/admin`, postInit).then(res => res.json());
+    const response = fetch(`${HOST}/authorize/admin`, postInit).then(res => res.json());
     return response
 }
 
@@ -56,7 +57,7 @@ export function authUser(name, pass) {
             "user_pass": pass
         })
     }
-    const response = fetch(`http://127.0.0.1:5000/authorize/user`, postInit).then(res => res.json());
+    const response = fetch(`${HOST}/authorize/user`, postInit).then(res => res.json());
     return response
 }
 
@@ -65,7 +66,7 @@ export function resetTag(org, tag_id) {
         method: "POST",
         mode: "cors"
     }
-    const response = fetch(`http://127.0.0.1:5000/reset/${org}/${tag_id}`, postInit).then(res => res.json());
+    const response = fetch(`${HOST}/reset/${org}/${tag_id}`, postInit).then(res => res.json());
     console.log(response)
     return response
 }
@@ -79,7 +80,7 @@ export function createUser(name, pass) {
             "pass": pass
         })
     }
-    const response = fetch(`http://127.0.0.1:5000/create-user/`, postInit).then(res => res.json());
+    const response = fetch(`${HOST}/create-user/`, postInit).then(res => res.json());
     console.log(response)
     return response
 }
