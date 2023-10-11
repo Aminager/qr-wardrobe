@@ -5,8 +5,8 @@ export const SignInButtonGroup = ({ setSignInUsername, org, tagid }) => {
   const navigate = useNavigate();
 
   const handleSignBankId = () => {
-    authTag(org, tagid, "Amin Alian");
-    navigate(`/${org}/${tagid}/?from=sign&type=bid&auth=true`);
+    window.open("https://app.bankid.com/?&redirect=172.20.10.2:5173", "_self");
+    //navigate(`/${org}/${tagid}/?from=sign&type=bid&auth=true`);
   };
 
   const handleSignUsername = () => {

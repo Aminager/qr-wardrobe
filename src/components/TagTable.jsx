@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { resetTag } from "../utils/API";
 
-export const TagTable = ({ org, data }) => {
-  const [loading, setLoading] = useState(-1);
+export const TagTable = ({ org, data, updateData }) => {
+  const [loading, setLoading] = useState(0);
   const handleReset = (tag) => {
     setLoading(tag);
-    resetTag(org, tag).then(console.log);
-    setLoading(-1);
+
+    resetTag(org, tag)
+      .then((res) => {
+        setTimeout(
+          () => (res["success"] === 1 ? setLoading(-1) : setLoading(-1)),
+          700
+        );
+      })
+      .then(updateData);
   };
 
   return (

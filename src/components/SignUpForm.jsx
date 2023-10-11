@@ -10,8 +10,10 @@ export const SignUpForm = ({ org, tagid }) => {
   const submitForm = (e) => {
     e.preventDefault();
     const name = document.getElementById("user_name_input").value;
-    const pass = hashPassword(document.getElementById("user_pass_input").value);
-    createUser(name, pass).then((res) => {
+    const { pass, salt } = hashPassword(
+      document.getElementById("user_pass_input").value
+    );
+    createUser(name, pass, salt).then((res) => {
       sessionStorage.setItem("org", res["org"]);
       if (res["success"] === 1) {
         authTag(org, tagid, name);

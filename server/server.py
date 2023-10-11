@@ -4,9 +4,11 @@ from flask import Flask, g, request, Response
 from flask_cors import CORS
 from markupsafe import escape
 
+## --host=0.0.0.0
+
 app = Flask(__name__)
 CORS(app)
-DATABASE = './database.sqlite'
+DATABASE = './database.db'
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -45,10 +47,15 @@ def reset_tag(org, tag_id):
               WHERE org_short_name = ? AND tag_id = ?
 """, [org, tag_id])
     tag = c.fetchone()
-    if tag[2] == 0:
-        return {
-            "success": 1
-        }
+    if tag is not None:
+        if tag[2] == 0:
+            return {
+                "success": 1
+            }
+        else:
+            return {
+                "success": 0
+            }
     else:
         return {
             "success": 0
@@ -186,6 +193,11 @@ def create_user():
                 VALUES (?, ?)
     """, [data["name"], data["pass"]])
         get_db().commit()
+        c.execute("""
+                INSERT INTO salts
+                VALUES (?, ?)
+    """, [data["name"], data["salt"]])
+        get_db().commit()
         return {
             "success": 1
         }
@@ -194,4 +206,15 @@ def create_user():
             "success": 0
         }
 
-    
+@app.get("/get-salt/<string:name>")
+def get_salt(name):
+    c = get_db().cursor()
+    c.execute("""
+            SELECT *
+            FROM salts
+            WHERE user_name = ?
+""", [name])
+    salt = c.fetchone()
+    return {
+        "salt": salt[1]
+    }

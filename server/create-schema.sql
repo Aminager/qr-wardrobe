@@ -30,3 +30,9 @@ CREATE TABLE users (
     user_password TEXT,
     PRIMARY KEY (user_name)
 );
+
+CREATE TABLE salts (
+    user_name TEXT,
+    salt TEXT,
+    PRIMARY KEY (user_name)
+);

@@ -1,4 +1,4 @@
-import { authUser, authTag } from "../utils/API";
+import { authUser, authTag, getSalt } from "../utils/API";
 import { useState } from "react";
 import { checkPassword, hashPassword } from "../utils/Crypt";
 import { useNavigate } from "react-router-dom";
@@ -11,15 +11,20 @@ export const SignInForm = ({ org, tagid }) => {
     e.preventDefault();
     const name = document.getElementById("user_name_input").value;
     const pass = document.getElementById("user_pass_input").value;
-    authUser(name, hashPassword(pass)).then((res) => {
-      sessionStorage.setItem("org", res["org"]);
-      if (res["success"] === 1 && checkPassword(res["pass"])) {
-        authTag(org, tagid, name);
-        navigate(`/${org}/${tagid}/?from=sign&type=username&auth=true`);
-      } else {
-        setShowAlert(true);
-      }
-    });
+    getSalt(name)
+      .then((res) => res["salt"])
+      .then((salt) => {
+        authUser(name, pass).then((res) => {
+          sessionStorage.setItem("org", res["org"]);
+          if (res["success"] === 1 && checkPassword(res["pass"], salt)) {
+            authTag(org, tagid, name).then((res) => {
+              navigate(`/${org}/${tagid}/?from=sign&type=username&auth=true`);
+            });
+          } else {
+            setShowAlert(true);
+          }
+        });
+      });
   };
   return (
     <form className="flex h-full justify-center items-center">
@@ -38,7 +43,7 @@ export const SignInForm = ({ org, tagid }) => {
           id="user_name_input"
           type="text"
           placeholder="e.g William Hawkins"
-          className="input input-bordered w-full max-w-xs bg-ekblue"
+          className="input input-bordered w-full max-w-xs bg-ekblue text-eklightbrown"
         />
         <label className="label">
           <span>Password</span>
@@ -46,7 +51,7 @@ export const SignInForm = ({ org, tagid }) => {
         <input
           id="user_pass_input"
           type="password"
-          className="input input-bordered w-full max-w-xs bg-ekblue"
+          className="input input-bordered w-full max-w-xs bg-ekblue text-eklightbrown"
         />
         <button
           onClick={submitForm}
