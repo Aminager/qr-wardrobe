@@ -156,8 +156,8 @@ def authorize_user():
     c.execute("""
             SELECT *
             FROM users
-            WHERE user_name = ? AND user_password = ?
-""", [data["user_name"], data["user_pass"]])
+            WHERE user_name = ?
+""", [data["user_name"]])
     user = c.fetchone()
     if user is None:
         return {
@@ -165,7 +165,9 @@ def authorize_user():
         }
     else:
         return {
-            "success": 1
+            "success": 1,
+            "user": user[0],
+            "pass": user[1]
         }
 
 @app.post("/create-user/")
@@ -177,7 +179,8 @@ def create_user():
             FROM users
             WHERE user_name = ?
 """, [data["name"]])
-    if c.fetchone()[0] is None:
+    user = c.fetchone()
+    if user is None:
         c.execute("""
                 INSERT INTO users
                 VALUES (?, ?)
